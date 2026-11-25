@@ -365,6 +365,7 @@ html:not(.js) .revela { opacity: 1; transform: none; }
 .caso__tag { font: 500 .74rem/1.4 var(--f-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--texto-suave); }
 .caso__titulo { font: 800 clamp(2rem, 4.4vw, 3.6rem)/1 var(--f-display); letter-spacing: -.035em; text-transform: uppercase; margin: .4rem 0 1.2rem; color: var(--off); }
 .caso__resumo { color: var(--texto-suave); }
+.caso__acoes { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.6rem; }
 .caso__lista { list-style: none; padding: 0; margin: 1.2rem 0 0; display: grid; gap: .55rem; }
 .caso__lista li { position: relative; padding-left: 1.6rem; font-size: .98rem; }
 .caso__lista li::before { content: "→"; position: absolute; left: 0; color: var(--cor); font-family: var(--f-mono); }

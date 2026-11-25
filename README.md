@@ -20,6 +20,7 @@ Abre em http://localhost:3002. Ou instale a extensão **Live Server** no VS Code
 | Cores, fontes e efeitos visuais | `css/estilos.css` (cores no topo, em `:root`) |
 | Abertura, cursor, setas, terminal | `js/main.js` |
 | Bugs que andam pela página | `js/bugs.js` |
+| Apresentações "por dentro" dos projetos | `projetos/*.html` + `css/apresentacao.css` + `js/apresentacao.js` |
 | Logos e fotos | `assets/brand/` |
 
 ### Trocar ou adicionar fotos
@@ -50,5 +51,5 @@ Qualquer hospedagem de site estático: Vercel, Netlify ou GitHub Pages
 - [x] E-mail, WhatsApp, GitHub e formação preenchidos a partir do currículo.
 - [ ] Adicionar o LinkedIn na seção Contato.
 - [ ] Mais 3 a 5 fotos (trabalho, tela com código, retrato) para o hero e as polaroids.
-- [ ] Confirmar autorização para citar o projeto Reporte de Vagas (sistema de cliente).
+- [x] Reporte de Vagas com link do sistema e apresentação "por dentro" (`projetos/reporte-de-vagas.html`, telas recriadas com dados fictícios).
 - [ ] Fase seguinte do plano: migrar para Next.js + Supabase, com projetos lidos do banco.

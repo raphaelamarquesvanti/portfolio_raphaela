@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reporte de Vagas · BR Talent · por dentro · Rapha Vanti</title>
+  <meta name="description" content="Como funciona por dentro o Sistema de Reporte de Vagas da BR Talent, desenvolvido por Raphaela Vanti.">
+  <meta name="theme-color" content="#332d2d">
+  <link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../assets/fonts/unbounded-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../css/estilos.css">
+  <link rel="stylesheet" href="../css/apresentacao.css">
+</head>
+<body class="apres-body">
+  <div class="fundo" aria-hidden="true">
+    <div class="fundo__aurora"></div>
+    <div class="fundo__grid"></div>
+    <div class="fundo__reticula"></div>
+    <div class="fundo__ruido"></div>
+  </div>
+
+  <header class="apres-topo">
+    <a class="apres-voltar" href="../index.html#projetos">← portfólio</a>
+    <span class="apres-titulo">Reporte de Vagas · <b>por dentro</b></span>
+    <span class="apres-contagem" aria-live="polite"><b id="slide-atual">01</b> / <span id="slide-total">09</span></span>
+  </header>
+
+  <main class="slides" id="slides" tabindex="0" aria-roledescription="apresentação" aria-label="Apresentação do Sistema de Reporte de Vagas">
+
+    <!-- 1 · CAPA -->
+    <section class="slide slide--capa" aria-label="Capa">
+      <div class="capa">
+        <p class="rotulo"><span class="pisca">▍</span> case · sistema interno · no ar</p>
+        <h1 class="capa__titulo">
+          <span class="glitch" data-text="Reporte">Reporte</span>
+          <span class="vazado" data-text="de Vagas">de Vagas</span>
+        </h1>
+        <p class="capa__sub">Como funciona, por dentro, o sistema que substituiu a planilha de reporte de vagas da <b>BR Talent</b>, consultoria de recrutamento.</p>
+        <div class="capa__acoes">
+          <a class="botao botao--neon" href="https://www.reporte.brtalent.com.br/" target="_blank" rel="noopener">Acessar o sistema ↗</a>
+          <button class="botao botao--vidro" type="button" data-ir="1">Começar →</button>
+        </div>
+        <ul class="capa__fatos">
+          <li><b>38</b><span>migrações SQL versionadas</span></li>
+          <li><b>4</b><span>perfis de acesso</span></li>
+          <li><b>0</b><span>fórmulas para apagar</span></li>
+        </ul>
+      </div>
+      <p class="dica">use ← → do teclado ou arraste para o lado</p>
+    </section>
+
+    <!-- 2 · O PROBLEMA -->
+    <section class="slide" aria-label="O problema">
+      <div class="duas">
+        <div>
+          <p class="rotulo">// 01 · o problema</p>
+          <h2 class="titulo-slide">Uma planilha que <span class="script">quebrava</span></h2>
+          <p class="texto-slide">O reporte de vagas vivia num Excel com macros. Funcionava, até alguém apagar uma fórmula sem perceber.</p>
+          <ul class="lista-x">
+            <li>Fórmulas apagadas e atualizações perdidas</li>
+            <li>Painel com números que não batiam com os dados (conversão, total de vagas fechadas, clientes únicos)</li>
+            <li>Prazo (SLA) contado em dias corridos, não em dias úteis</li>
+            <li>Ninguém sabia quem mudou o quê, nem por quê</li>
+          </ul>
+        </div>
+        <div class="planilha" aria-hidden="true">
+          <div class="planilha__barra"><i></i><i></i><i></i><span>Reporte_Geral.xlsm</span></div>
+          <div class="planilha__grade">
+            <span class="c h">Vaga</span><span class="c h">Status</span><span class="c h">SLA</span><span class="c h">Conv.</span>
+            <span class="c">Analista Fiscal</span><span class="c">fechada</span><span class="c erro">#REF!</span><span class="c">—</span>
+            <span class="c">Coord. Logística</span><span class="c">Fechado</span><span class="c">56</span><span class="c erro">#DIV/0!</span>
+            <span class="c">Assist. Adm.</span><span class="c"></span><span class="c erro">#VALOR!</span><span class="c">40,2%?</span>
+            <span class="c">Dev Júnior</span><span class="c">cancel.</span><span class="c">=B5-A5</span><span class="c erro">#N/D</span>
+          </div>
+          <span class="carimbo">fórmula apagada</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · A IDEIA -->
+    <section class="slide" aria-label="A ideia central">
+      <div class="centro">
+        <p class="rotulo">// 02 · a ideia central</p>
+        <h2 class="titulo-slide">A tela é a <span class="script">vitrine</span>.<br>O banco é o <span class="vazado vazado--claro" data-text="cofre">cofre</span> com porteiro.</h2>
+        <p class="texto-slide texto-slide--centro">O site nunca escreve direto nas tabelas. Ele pede ao banco para executar funções prontas, e o banco decide quem pode. Se alguém burlar a tela, o banco recusa do mesmo jeito.</p>
+        <div class="arq" data-ligacoes="0-1,1-2,1-3,1-4">
+          <div class="arq__no" style="--x:2%;--y:38%"><small>navegador</small>React + TypeScript<br><em>Cloudflare Pages</em></div>
+          <div class="arq__no arq__no--forte" style="--x:38%;--y:34%"><small>supabase · são paulo</small>Postgres + Auth + RLS</div>
+          <div class="arq__no" style="--x:76%;--y:2%"><small>regras</small>funções SQL<br><em>criar_vaga · mudar_status</em></div>
+          <div class="arq__no" style="--x:78%;--y:40%"><small>histórico</small>linha do tempo imutável</div>
+          <div class="arq__no" style="--x:74%;--y:76%"><small>auditoria</small>hash encadeado</div>
+          <span class="arq__rotulo" style="--x:24%;--y:30%">HTTPS · só chave pública</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · TELA PAINEL -->
+    <section class="slide" aria-label="Tela: Painel">
+      <div class="duas duas--tela">
+        <div>
+          <p class="rotulo">// 03 · tela · painel</p>
+          <h2 class="titulo-slide">Tudo que importa <span class="script">ao abrir</span></h2>
+          <p class="texto-slide">Indicadores calculados no servidor, vagas por status, o que falta completar e as vagas paradas há muito tempo, para nada ser esquecido.</p>
+          <ul class="lista-ok">
+            <li>SLA em dias úteis, com feriados</li>
+            <li>Pendências do legado viram tarefas</li>
+            <li>Últimas mudanças de toda a equipe</li>
+          </ul>
+        </div>
+        <figure class="janela" aria-label="Recriação da tela Painel com dados fictícios">
+          <div class="janela__barra"><i></i><i></i><i></i><span>reporte.brtalent.com.br</span></div>
+          <div class="br">
+            <div class="br__topo"><b>BR Talent</b><span>Reporte de Vagas</span><nav><u>Painel</u><a>Dashboard</a><a>Vagas</a><a>Clientes</a><a>Atividade</a></nav></div>
+            <div class="br__corpo">
+              <h3>Painel</h3>
+              <div class="br__cartoes">
+                <div class="br__cartao"><small>Abertas</small><b>12</b></div>
+                <div class="br__cartao"><small>Fechadas no mês</small><b>5</b></div>
+                <div class="br__cartao"><small>SLA mediano</small><b>18 <em>d.u.</em></b></div>
+                <div class="br__cartao"><small>Paradas</small><b>3</b></div>
+              </div>
+              <h4>Vagas por status</h4>
+              <div class="br__barras">
+                <span style="--v:70%">Triagem</span><span style="--v:52%">Entrevista com cliente</span><span style="--v:38%">Divulgação</span><span style="--v:20%">Aguardando cliente</span>
+              </div>
+              <h4>Paradas há mais tempo</h4>
+              <div class="br__linha"><span>Analista de Dados Pl.</span><span class="br__selo br__selo--alerta">parada</span></div>
+              <div class="br__linha"><span>Assistente Financeiro</span><span class="br__selo br__selo--alerta">parada</span></div>
+            </div>
+          </div>
+          <figcaption>recriação com dados fictícios</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 5 · TELA VAGAS -->
+    <section class="slide" aria-label="Tela: Vagas">
+      <div class="duas duas--tela">
+        <div>
+          <p class="rotulo">// 04 · tela · vagas</p>
+          <h2 class="titulo-slide">Parece planilha. <span class="script">Não quebra.</span></h2>
+          <p class="texto-slide">Uma grade com busca, filtros e ordenação, como a equipe já estava acostumada. A diferença: campos tipados, status em lista fechada e exportação segura.</p>
+          <ul class="lista-ok">
+            <li>Exportação em CSV e PDF</li>
+            <li>O CSV neutraliza células que começam com = + - @ (sem fórmula maliciosa)</li>
+            <li>Consultor vê só as próprias vagas</li>
+          </ul>
+        </div>
+        <figure class="janela" aria-label="Recriação da tela Vagas com dados fictícios">
+          <div class="janela__barra"><i></i><i></i><i></i><span>reporte.brtalent.com.br/vagas</span></div>
+          <div class="br">
+            <div class="br__topo"><b>BR Talent</b><span>Reporte de Vagas</span><nav><a>Painel</a><a>Dashboard</a><u>Vagas</u><a>Clientes</a><a>Atividade</a></nav></div>
+            <div class="br__corpo">
+              <div class="br__acoes"><h3>Vagas <em>(12)</em></h3><span class="br__busca">🔍 buscar vaga, cliente…</span><span class="br__btn">CSV</span><span class="br__btn">PDF</span><span class="br__btn br__btn--pri">+ Nova vaga</span></div>
+              <div class="br__tabela">
+                <span class="h">Vaga</span><span class="h">Cliente</span><span class="h">Status</span><span class="h">Dias úteis</span>
+                <span>Analista Fiscal</span><span>Empresa A</span><span><i class="br__selo">Triagem</i></span><span>9</span>
+                <span>Coord. de Logística</span><span>Empresa B</span><span><i class="br__selo">Entrevista</i></span><span>14</span>
+                <span>Dev Júnior</span><span>Empresa C</span><span><i class="br__selo br__selo--ok">Fechada</i></span><span>21</span>
+                <span>Assist. Administrativo</span><span>Empresa A</span><span><i class="br__selo br__selo--cinza">Suspensa</i></span><span>—</span>
+                <span>Analista de RH</span><span>Empresa D</span><span><i class="br__selo">Divulgação</i></span><span>3</span>
+              </div>
+            </div>
+          </div>
+          <figcaption>recriação com dados fictícios</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 6 · DETALHE + STATUS -->
+    <section class="slide" aria-label="Tela: detalhe da vaga">
+      <div class="duas duas--tela">
+        <div>
+          <p class="rotulo">// 05 · tela · detalhe da vaga</p>
+          <h2 class="titulo-slide">O que mudou <span class="script">e por quê</span></h2>
+          <p class="texto-slide">Toda mudança vale na hora e fica registrada: quem, quando, valor antigo, valor novo e o motivo, que é obrigatório. Nada é excluído; uma vaga se encerra mudando o status.</p>
+          <div class="estados" aria-label="Status possíveis de uma vaga">
+            <span>Aberta</span><i>→</i><span>Divulgação</span><i>→</i><span>Triagem</span><i>→</i><span>Entrevista com cliente</span><i>→</i><span>Aguardando cliente</span><i>→</i><span class="estados__fim">Fechada</span>
+            <span class="estados__lado">Suspensa</span><span class="estados__lado">Cancelada <small>+ motivo</small></span>
+          </div>
+        </div>
+        <figure class="janela" aria-label="Recriação da linha do tempo de uma vaga com dados fictícios">
+          <div class="janela__barra"><i></i><i></i><i></i><span>reporte.brtalent.com.br/vagas/…</span></div>
+          <div class="br">
+            <div class="br__corpo">
+              <h3>Analista Fiscal <i class="br__selo">Triagem</i></h3>
+              <h4>Calculado pelo sistema</h4>
+              <div class="br__calc"><span>SLA <b>9 d.u.</b></span><span>Previsão de entrega <b>14 d.u.</b></span></div>
+              <h4>Histórico: o que mudou e por quê</h4>
+              <ol class="br__tempo">
+                <li><b>Status</b> Divulgação → <u>Triagem</u><small>Consultora A · hoje 10:42 · “3 currículos recebidos”</small></li>
+                <li><b>Remuneração</b> R$ 4.500 → <u>R$ 5.000</u><small>Coordenação · ontem · “cliente reajustou a faixa”</small></li>
+                <li><b>Status</b> Aberta → <u>Divulgação</u><small>Consultora A · seg · “vaga publicada”</small></li>
+                <li><b>Vaga criada</b><small>Coordenação · seg</small></li>
+              </ol>
+            </div>
+          </div>
+          <figcaption>recriação com dados fictícios</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 7 · SEGURANÇA -->
+    <section class="slide" aria-label="Segurança e LGPD">
+      <div class="centro">
+        <p class="rotulo">// 06 · segurança e LGPD</p>
+        <h2 class="titulo-slide">Seguro <span class="script">por padrão</span></h2>
+        <div class="grade-seg">
+          <div class="seg"><b>RLS em todas as tabelas</b><p>O banco nega tudo por padrão. Visitante anônimo não lê nada.</p></div>
+          <div class="seg"><b>4 perfis</b><p>Administrador, coordenação, consultor e somente leitura. Consultor vê só as suas vagas.</p></div>
+          <div class="seg"><b>Auditoria com hash encadeado</b><p>Cada alteração entra num registro em que adulteração é detectável.</p></div>
+          <div class="seg"><b>Sem botão de excluir</b><p>Vaga se encerra como Cancelada, com motivo. O histórico fica.</p></div>
+          <div class="seg"><b>Login protegido</b><p>Sem cadastro público, senha mínima de 12 caracteres e CAPTCHA (Turnstile).</p></div>
+          <div class="seg"><b>Cabeçalhos de segurança</b><p>CSP, HSTS e bloqueio de iframe no Cloudflare.</p></div>
+          <div class="seg"><b>LGPD</b><p>Privacidade, termos e direitos do titular abertos sem login; aceite de termos no primeiro acesso.</p></div>
+          <div class="seg"><b>Chaves no lugar certo</b><p>Só a chave pública vai no site; dados reais e segredos nunca entram no Git.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 · COMO FOI CONSTRUÍDO -->
+    <section class="slide" aria-label="Como foi construído">
+      <div class="centro">
+        <p class="rotulo">// 07 · método</p>
+        <h2 class="titulo-slide">Banco <span class="script">primeiro</span>, tela depois</h2>
+        <ol class="trilha">
+          <li><b>Descoberta</b><span>Entender a planilha e o que quebra; validar com o cliente</span></li>
+          <li><b>Desenho</b><span>Campos tipados, listas fechadas, máquina de estados</span></li>
+          <li><b>Banco</b><span>Tabelas, funções e indicadores em migrações SQL numeradas</span></li>
+          <li><b>Segurança</b><span>RLS, permissões mínimas, escrita só por funções</span></li>
+          <li><b>Telas</b><span>Painel, vagas, detalhe, clientes, candidatos, administração</span></li>
+          <li><b>Importação</b><span>Script em Python leva a planilha antiga para o banco</span></li>
+          <li><b>Publicação</b><span>Push no GitHub e o Cloudflare publica sozinho</span></li>
+          <li><b>Paralelo</b><span>Rodar junto da planilha até fechar sem divergência</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 9 · FIM -->
+    <section class="slide slide--fim" aria-label="Encerramento">
+      <div class="centro">
+        <p class="rotulo">// fim</p>
+        <h2 class="titulo-slide titulo-slide--grande">De planilha frágil a <span class="script">sistema</span>.</h2>
+        <ul class="tags tags--centro" aria-label="Tecnologias">
+          <li>React 19</li><li>TypeScript</li><li>Vite</li><li>Supabase</li><li>Postgres + RLS</li><li>Python</li><li>jsPDF</li><li>Cloudflare Pages</li>
+        </ul>
+        <div class="capa__acoes capa__acoes--centro">
+          <a class="botao botao--neon" href="https://www.reporte.brtalent.com.br/" target="_blank" rel="noopener">Acessar o sistema ↗</a>
+          <a class="botao botao--vidro" href="../index.html#contato">Quero um sistema assim</a>
+        </div>
+        <p class="nota">O acesso ao sistema é restrito à equipe da BR Talent. As telas desta apresentação foram recriadas com dados fictícios.</p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="controles" aria-label="Navegação da apresentação">
+    <button type="button" class="controle" id="anterior" aria-label="Slide anterior">←</button>
+    <div class="pontos" id="pontos"></div>
+    <button type="button" class="controle" id="proximo" aria-label="Próximo slide">→</button>
+  </nav>
+  <div class="progresso" aria-hidden="true"><span id="progresso"></span></div>
+
+  <script src="../js/apresentacao.js" defer></script>
+</body>
+</html>

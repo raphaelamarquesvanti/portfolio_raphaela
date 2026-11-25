@@ -159,28 +159,32 @@
       <article class="caso revela" data-cor="rosa">
         <div class="caso__num" aria-hidden="true">01</div>
         <div class="caso__info">
-          <p class="caso__tag"><span class="status status--valida">protótipo em validação</span> sistema interno · recrutamento</p>
+          <p class="caso__tag"><span class="status status--valida">no ar</span> sistema interno · BR Talent</p>
           <h3 class="caso__titulo glitch-hover" data-text="Reporte de Vagas">Reporte de Vagas</h3>
           <p class="caso__resumo">
-            Sistema web que substitui a planilha de reporte de vagas de uma consultoria de recrutamento.
+            Sistema web que substituiu a planilha de reporte de vagas da BR Talent, consultoria de recrutamento.
             Ninguém digita fórmula: campos tipados, status em lista fechada e SLA em dias úteis calculado pelo servidor.
           </p>
           <ul class="caso__lista">
-            <li>Histórico de tudo o que mudou, e por quê</li>
-            <li>Campos sigilosos só mudam com aprovação do administrador</li>
+            <li>Toda mudança registrada: quem, quando, antes, depois e por quê</li>
             <li>Consultor vê apenas as próprias vagas (regras no banco, não na tela)</li>
-            <li>Dashboard ao vivo e exportação em PDF</li>
-            <li>Importador em Python que leva a planilha antiga para o banco</li>
+            <li>Auditoria com hash encadeado e nada é excluído</li>
+            <li>Dashboard, clientes, candidatos e exportação em PDF e CSV</li>
+            <li>Importador em Python que levou a planilha antiga para o banco</li>
           </ul>
           <ul class="tags" aria-label="Tecnologias">
-            <li>React 19</li><li>TypeScript</li><li>Vite</li><li>Supabase</li><li>Postgres + RLS</li><li>Python</li><li>jsPDF</li>
+            <li>React 19</li><li>TypeScript</li><li>Vite</li><li>Supabase</li><li>Postgres + RLS</li><li>Python</li><li>Cloudflare Pages</li>
           </ul>
+          <div class="caso__acoes">
+            <a class="botao botao--neon botao--mini magnetico" href="projetos/reporte-de-vagas.html">Ver por dentro →</a>
+            <a class="botao botao--vidro botao--mini magnetico" href="https://www.reporte.brtalent.com.br/" target="_blank" rel="noopener">Acessar o sistema ↗</a>
+          </div>
         </div>
         <figure class="fluxo" data-ligacoes="0-1,1-2,2-3,3-4" aria-label="Arquitetura: planilha, importador Python, banco Postgres com regras, interface React e relatório PDF">
           <div class="fluxo__no" style="--x:6%;--y:10%"><small>origem</small>Planilha .xlsm</div>
           <div class="fluxo__no" style="--x:52%;--y:10%"><small>scripts/</small>Importador Python</div>
           <div class="fluxo__no fluxo__no--forte" style="--x:30%;--y:44%"><small>supabase/</small>Postgres · RLS<br>migrações SQL versionadas</div>
-          <div class="fluxo__no" style="--x:4%;--y:78%"><small>frontend/</small>React + TS</div>
+          <div class="fluxo__no" style="--x:4%;--y:78%"><small>frontend/</small>React + TS<br>Cloudflare Pages</div>
           <div class="fluxo__no" style="--x:58%;--y:78%"><small>saída</small>Dashboard · PDF</div>
           <span class="fluxo__pacote" aria-hidden="true"></span>
         </figure>
