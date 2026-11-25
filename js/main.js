@@ -69,10 +69,15 @@
 
   /* ---------- menu some ao descer, volta ao subir ---------- */
   var topo = document.getElementById("topo"), ultimoY = 0;
+  var rolagemPendente = false;
   addEventListener("scroll", function () {
-    var y = scrollY;
-    topo.classList.toggle("esconde", y > 300 && y > ultimoY);
-    ultimoY = y;
+    if (rolagemPendente) return; rolagemPendente = true;
+    requestAnimationFrame(function () {
+      rolagemPendente = false;
+      var y = scrollY;
+      topo.classList.toggle("esconde", y > 300 && y > ultimoY);
+      ultimoY = y;
+    });
   }, { passive: true });
 
   /* ---------- cursor próprio (só computador) ---------- */
@@ -82,15 +87,22 @@
     var ponto = cursor.querySelector(".cursor__ponto"), anel = cursor.querySelector(".cursor__anel");
     var ax = mx, ay = my;
     raiz.classList.add("cursor-on");
-    addEventListener("mousemove", function (e) { mx = e.clientX; my = e.clientY; ponto.style.transform = "translate(" + mx + "px," + my + "px) translate(-50%,-50%)"; }, { passive: true });
-    (function seguir() {
-      ax += (mx - ax) * 0.18; ay += (my - ay) * 0.18;
-      anel.style.transform = "translate(" + ax + "px," + ay + "px) translate(-50%,-50%)";
-      requestAnimationFrame(seguir);
-    })();
+    var seguindo = false;
+    function seguir() {
+      ax += (mx - ax) * 0.3; ay += (my - ay) * 0.3;
+      ponto.style.transform = "translate3d(" + mx + "px," + my + "px,0) translate(-50%,-50%)";
+      anel.style.transform = "translate3d(" + ax + "px," + ay + "px,0) translate(-50%,-50%)";
+      if (Math.abs(mx - ax) + Math.abs(my - ay) > 0.5) requestAnimationFrame(seguir); else seguindo = false;
+    }
+    addEventListener("mousemove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      if (!seguindo) { seguindo = true; requestAnimationFrame(seguir); }
+    }, { passive: true });
+    var ativoAntes = false;
     document.addEventListener("mouseover", function (e) {
-      cursor.classList.toggle("ativo", !!e.target.closest("a, button, .fluxo__no, .caso"));
-    });
+      var ativo = !!e.target.closest("a, button, .fluxo__no");
+      if (ativo !== ativoAntes) { cursor.classList.toggle("ativo", ativo); ativoAntes = ativo; }
+    }, { passive: true });
   }
 
   /* ---------- botões magnéticos ---------- */
@@ -105,36 +117,42 @@
   });
 
   /* ---------- hero: camadas em paralaxe com o mouse ---------- */
-  var camadas = document.querySelectorAll(".hero__palco [data-prof]");
-  if (temMouse) addEventListener("mousemove", function (e) {
-    if (calmo() || scrollY > innerHeight) return;
-    var dx = (e.clientX / innerWidth - 0.5) * 2, dy = (e.clientY / innerHeight - 0.5) * 2;
+  var camadas = Array.prototype.map.call(document.querySelectorAll(".hero__palco [data-prof]"), function (c) {
+    return { el: c, p: parseFloat(c.dataset.prof) * 18 };
+  });
+  var heroVisivel = true, pdx = 0, pdy = 0, paralaxePendente = false;
+  function aplicarParalaxe() {
+    paralaxePendente = false;
     camadas.forEach(function (c) {
-      var p = parseFloat(c.dataset.prof) * 18;
-      c.style.setProperty("--mx", (dx * p).toFixed(1) + "px");
-      c.style.setProperty("--my", (dy * p).toFixed(1) + "px");
+      c.el.style.setProperty("--mx", (pdx * c.p).toFixed(1) + "px");
+      c.el.style.setProperty("--my", (pdy * c.p).toFixed(1) + "px");
     });
+  }
+  if (temMouse) addEventListener("mousemove", function (e) {
+    if (calmo() || !heroVisivel) return;
+    pdx = (e.clientX / innerWidth - 0.5) * 2; pdy = (e.clientY / innerHeight - 0.5) * 2;
+    if (!paralaxePendente) { paralaxePendente = true; requestAnimationFrame(aplicarParalaxe); }
   }, { passive: true });
+
+  /* ---------- pausa as animações das partes que estão fora da tela ---------- */
+  var pausador = new IntersectionObserver(function (en) {
+    en.forEach(function (e) {
+      e.target.classList.toggle("pausado", !e.isIntersecting);
+      if (e.target.classList.contains("hero")) heroVisivel = e.isIntersecting;
+    });
+  }, { rootMargin: "100px 0px" });
+  document.querySelectorAll(".hero, .faixa, .secao").forEach(function (s) { pausador.observe(s); });
 
   /* ---------- foto "bugando" de vez em quando ---------- */
   var foto = document.querySelector(".foto");
   function glitchFoto() {
-    if (foto && !calmo() && !document.hidden) {
+    if (foto && heroVisivel && !calmo() && !document.hidden) {
       foto.classList.add("glitchando");
       setTimeout(function () { foto.classList.remove("glitchando"); }, 500);
     }
     setTimeout(glitchFoto, 3500 + Math.random() * 4000);
   }
   setTimeout(glitchFoto, 2500);
-
-  /* ---------- cards: luz que segue o mouse ---------- */
-  document.querySelectorAll(".caso").forEach(function (c) {
-    c.addEventListener("pointermove", function (e) {
-      var r = c.getBoundingClientRect();
-      c.style.setProperty("--lx", e.clientX - r.left + "px");
-      c.style.setProperty("--ly", e.clientY - r.top + "px");
-    });
-  });
 
   /* ---------- setas desenhadas entre elementos reais ---------- */
   var NS = "http://www.w3.org/2000/svg";
@@ -193,14 +211,22 @@
     });
   }
   // pacote de dados que viaja pelas setas
+  var fluxosNaTela = new Set(), pacoteRodando = false;
+  var olhoFluxo = new IntersectionObserver(function (en) {
+    en.forEach(function (e) { if (e.isIntersecting) fluxosNaTela.add(e.target); else fluxosNaTela.delete(e.target); });
+    if (fluxosNaTela.size && !pacoteRodando) { pacoteRodando = true; requestAnimationFrame(animarPacotes); }
+  });
+  document.querySelectorAll(".fluxo").forEach(function (f) { olhoFluxo.observe(f); });
   function animarPacotes(t) {
-    if (!calmo()) document.querySelectorAll(".caso.visivel .fluxo").forEach(function (f) {
+    if (!fluxosNaTela.size) { pacoteRodando = false; return; }
+    if (!calmo()) fluxosNaTela.forEach(function (f) {
+      if (!f.closest(".caso.visivel")) return;
       var cs = f._caminhos, pac = f.querySelector(".fluxo__pacote");
       if (!cs || !cs.length || !pac) return;
       var ciclo = 1600, total = cs.length * ciclo;
       var k = (t % total) / ciclo, i = Math.floor(k), fr = k - i;
       var c = cs[i], pt = c.getPointAtLength(fr * c.getTotalLength());
-      pac.style.transform = "translate(" + (pt.x - 5) + "px," + (pt.y - 5) + "px)";
+      pac.style.transform = "translate3d(" + (pt.x - 5) + "px," + (pt.y - 5) + "px,0)";
     });
     requestAnimationFrame(animarPacotes);
   }
@@ -244,7 +270,7 @@
   function montarTudo() { montarFluxos(); montarObra(); }
   var espera;
   addEventListener("resize", function () { clearTimeout(espera); espera = setTimeout(montarTudo, 150); });
-  (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () { montarTudo(); requestAnimationFrame(animarPacotes); });
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(montarTudo);
 
   /* ---------- terminal da seção Bugs ---------- */
   var term = document.getElementById("terminal");

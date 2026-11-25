@@ -61,7 +61,7 @@ p { margin: 0 0 1rem; }
 .pular:focus { top: 1rem; }
 
 /* ---------- 4. Fundo em camadas (fixo, uma vez só) ---------- */
-.fundo { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.fundo { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; contain: strict; transform: translateZ(0); }
 .fundo__aurora {
   position: absolute; inset: -30%;
   background:
@@ -69,7 +69,7 @@ p { margin: 0 0 1rem; }
     radial-gradient(35% 30% at 80% 20%, rgba(217, 126, 185, .22), transparent 70%),
     radial-gradient(45% 40% at 70% 80%, rgba(106, 14, 7, .55), transparent 70%),
     radial-gradient(30% 25% at 15% 85%, rgba(255, 254, 163, .08), transparent 70%);
-  filter: blur(30px); animation: aurora 24s ease-in-out infinite alternate;
+  will-change: transform; animation: aurora 24s ease-in-out infinite alternate;
 }
 @keyframes aurora { to { transform: translate3d(4%, -3%, 0) rotate(8deg) scale(1.08); } }
 .fundo__grid {
@@ -87,11 +87,9 @@ p { margin: 0 0 1rem; }
   mask-image: linear-gradient(115deg, transparent 40%, #000 75%, transparent 95%);
 }
 .fundo__ruido {
-  position: absolute; inset: -50%; opacity: .09; mix-blend-mode: overlay;
+  position: absolute; inset: 0; opacity: .07;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: ruido 1s steps(4) infinite;
 }
-@keyframes ruido { 25% { transform: translate(-3%, 2%); } 50% { transform: translate(2%, -3%); } 75% { transform: translate(-1%, -2%); } }
 .fundo__scan {
   position: absolute; inset: 0; opacity: .35;
   background: repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0, 0, 0, .18) 3px 4px);
@@ -138,7 +136,7 @@ p { margin: 0 0 1rem; }
 .botao:hover::after { transform: translateX(120%) skewX(-20deg); }
 .botao--neon { background: var(--rosa); border-color: var(--rosa); box-shadow: var(--sombra-neon); }
 .botao--neon:hover { background: #e03a82; }
-.botao--vidro { background: var(--vidro); backdrop-filter: blur(12px); }
+.botao--vidro { background: rgba(248, 247, 243, .08); }
 .botao--vidro:hover { border-color: var(--rosa-claro); box-shadow: 0 0 24px rgba(217, 126, 185, .3); }
 .botao--mini { padding: .7rem 1.1rem; font-size: .7rem; }
 
@@ -159,9 +157,9 @@ p { margin: 0 0 1rem; }
 @media (hover: hover) and (pointer: fine) {
   html.cursor-on, html.cursor-on a, html.cursor-on button { cursor: none; }
   .cursor { display: block; position: fixed; inset: 0; pointer-events: none; z-index: 150; }
-  .cursor__ponto, .cursor__anel { position: fixed; left: 0; top: 0; border-radius: 50%; transform: translate(-50%, -50%); }
+  .cursor__ponto, .cursor__anel { position: fixed; left: 0; top: 0; border-radius: 50%; transform: translate(-50%, -50%); will-change: transform; }
   .cursor__ponto { width: 7px; height: 7px; background: var(--amarelo); box-shadow: 0 0 12px var(--amarelo); }
-  .cursor__anel { width: 38px; height: 38px; border: 1.5px solid var(--rosa-claro); transition: width .25s var(--ease), height .25s var(--ease), background .25s, border-color .25s; mix-blend-mode: screen; }
+  .cursor__anel { width: 38px; height: 38px; border: 1.5px solid var(--rosa-claro); transition: width .25s var(--ease), height .25s var(--ease), background .25s, border-color .25s; }
   .cursor.ativo .cursor__anel { width: 64px; height: 64px; background: rgba(206, 48, 115, .15); border-color: var(--rosa); }
 }
 
@@ -177,7 +175,7 @@ html:not(.js) .revela { opacity: 1; transform: none; }
   position: fixed; top: .9rem; left: 50%; z-index: 100; transform: translateX(-50%);
   width: var(--larg); display: flex; align-items: center; justify-content: space-between; gap: 1rem;
   padding: .55rem .6rem .55rem 1.2rem; border-radius: 999px;
-  background: rgba(28, 24, 24, .55); border: 1px solid var(--linha); backdrop-filter: blur(18px) saturate(1.4);
+  background: rgba(28, 24, 24, .82); border: 1px solid var(--linha); backdrop-filter: blur(8px);
   transition: transform .4s var(--ease);
 }
 .topo.esconde { transform: translate(-50%, -140%); }
@@ -230,13 +228,13 @@ html:not(.js) .revela { opacity: 1; transform: none; }
 /* palco em camadas */
 .hero__palco { position: relative; aspect-ratio: 520 / 600; width: 100%; max-width: 520px; justify-self: end; }
 .hero__palco > * { --mx: 0px; --my: 0px; }
-.placa { position: absolute; border-radius: 28px; transform: translate(var(--mx), var(--my)); transition: transform .2s linear; }
+.placa { position: absolute; border-radius: 28px; transform: translate(var(--mx), var(--my)); will-change: transform; }
 .placa--vinho { inset: 14% 2% 2% 16%; background: linear-gradient(160deg, var(--vinho), #2a0603); box-shadow: 0 40px 80px rgba(0, 0, 0, .5); }
 .placa--vinho::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background-image: radial-gradient(rgba(255, 254, 163, .25) 1px, transparent 1.3px); background-size: 9px 9px; opacity: .5; }
 .placa--rosa { inset: 4% 12% 12% 6%; border: 2px solid var(--rosa); box-shadow: var(--sombra-neon); }
 .foto {
   position: absolute; inset: 9% 7% 7% 11%; margin: 0; border-radius: 22px; overflow: hidden;
-  transform: translate(var(--mx), var(--my)); transition: transform .2s linear;
+  transform: translate(var(--mx), var(--my)); will-change: transform;
   box-shadow: 0 30px 60px rgba(0, 0, 0, .55);
 }
 .foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; filter: saturate(1.08) contrast(1.04); }
@@ -255,12 +253,12 @@ html:not(.js) .revela { opacity: 1; transform: none; }
   100% { clip-path: inset(0 0 100% 0); transform: none; }
 }
 .setas-hero { position: absolute; inset: 0; width: 100%; height: 100%; color: var(--amarelo); overflow: visible; pointer-events: none; }
-.seta { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-dasharray: 5 6; animation: tracejado 1.2s linear infinite; filter: drop-shadow(0 0 4px rgba(255, 254, 163, .7)); }
+.seta { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-dasharray: 5 6; animation: tracejado 1.2s linear infinite; }
 @keyframes tracejado { to { stroke-dashoffset: -22; } }
 .chip {
-  position: absolute; z-index: 3; transform: translate(var(--mx), var(--my)); transition: transform .2s linear;
+  position: absolute; z-index: 3; transform: translate(var(--mx), var(--my));
   font: 500 .72rem/1 var(--f-mono); padding: .6rem .8rem; border-radius: 10px; white-space: nowrap;
-  background: rgba(28, 24, 24, .72); border: 1px solid var(--linha); backdrop-filter: blur(10px);
+  background: rgba(28, 24, 24, .9); border: 1px solid var(--linha);
   box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
 }
 .chip b { color: var(--rosa-claro); margin-right: .35rem; }
@@ -275,7 +273,7 @@ html:not(.js) .revela { opacity: 1; transform: none; }
 .estrela--3 { top: 44%; right: -2%; font-size: 1.6rem; animation-delay: -2s; }
 @keyframes brilho { 50% { transform: scale(.6) rotate(45deg); opacity: .5; } }
 
-.selo-giro { position: absolute; z-index: 4; right: -9%; top: -6%; width: 128px; aspect-ratio: 1; transform: translate(var(--mx), var(--my)); transition: transform .2s linear; }
+.selo-giro { position: absolute; z-index: 4; right: -9%; top: -6%; width: 128px; aspect-ratio: 1; transform: translate(var(--mx), var(--my)); }
 .selo-giro svg { width: 100%; height: 100%; animation: giro 16s linear infinite; overflow: visible; }
 .selo-giro text { font: 700 12.5px var(--f-mono); fill: var(--off); }
 .selo-giro::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--rosa); box-shadow: var(--sombra-neon); z-index: -1; }
@@ -293,7 +291,7 @@ html:not(.js) .revela { opacity: 1; transform: none; }
 .ficha {
   position: absolute; z-index: 6; left: -24%; bottom: 30%; display: grid; gap: .25rem; padding: .8rem .9rem;
   font: 500 .62rem/1.2 var(--f-mono); letter-spacing: .14em; color: var(--texto-suave);
-  background: rgba(248, 247, 243, .06); border: 1px solid var(--linha); border-radius: 8px; backdrop-filter: blur(8px);
+  background: rgba(38, 31, 32, .92); border: 1px solid var(--linha); border-radius: 8px;
   transform: translate(var(--mx), var(--my)) rotate(-3deg);
 }
 .ficha b { color: var(--off); font-size: .8rem; }
@@ -314,7 +312,7 @@ html:not(.js) .revela { opacity: 1; transform: none; }
 
 /* faixa rolante */
 .faixa { position: relative; transform: rotate(-2deg); margin: 2rem -2rem; background: var(--rosa); padding: 1rem 0; overflow: hidden; box-shadow: 0 0 60px rgba(206, 48, 115, .45); border-block: 2px solid var(--amarelo); }
-.faixa__trilho { display: flex; gap: 2rem; width: max-content; animation: faixa 30s linear infinite; font: 800 clamp(1.3rem, 2.6vw, 2.2rem)/1 var(--f-display); letter-spacing: -.01em; }
+.faixa__trilho { display: flex; gap: 2rem; width: max-content; will-change: transform; animation: faixa 30s linear infinite; font: 800 clamp(1.3rem, 2.6vw, 2.2rem)/1 var(--f-display); letter-spacing: -.01em; }
 .faixa__trilho i { color: var(--amarelo); font-style: normal; }
 @keyframes faixa { to { transform: translateX(-50%); } }
 
@@ -335,27 +333,29 @@ html:not(.js) .revela { opacity: 1; transform: none; }
 
 /* casos (projetos) */
 .caso {
-  position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center;
-  padding: clamp(2rem, 4vw, 3.5rem); margin-bottom: 3rem; border-radius: 32px;
-  background: linear-gradient(160deg, rgba(248, 247, 243, .07), rgba(248, 247, 243, .02));
-  border: 1px solid var(--linha); backdrop-filter: blur(6px); overflow: hidden;
+  position: relative; isolation: isolate; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center;
+  padding: clamp(2rem, 4vw, 3.5rem); margin-bottom: 3rem; border-radius: 32px; overflow: hidden; contain: paint;
+  background: rgba(248, 247, 243, .12);
   --cor: var(--rosa);
 }
 .caso[data-cor="amarelo"] { --cor: var(--amarelo); }
 .caso[data-cor="vinho"] { --cor: var(--rosa-claro); }
-.caso::before { /* borda luminosa que gira */
-  content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none;
-  background: conic-gradient(from var(--ang, 0deg), transparent 0 70%, var(--cor) 85%, transparent 100%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
-  animation: bordaGira 6s linear infinite;
+/* borda luminosa: um quadrado com gradiente cônico que GIRA (só transform = leve);
+   o ::after cobre o miolo e deixa aparecer só 1px de borda */
+.caso::before {
+  content: ""; position: absolute; z-index: -2; left: 50%; top: 50%; width: 130%; aspect-ratio: 1;
+  background: conic-gradient(transparent 0 72%, var(--cor) 86%, transparent 100%);
+  transform: translate(-50%, -50%) rotate(0deg);
+  animation: bordaGira 6s linear infinite paused;
 }
-@property --ang { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
-@keyframes bordaGira { to { --ang: 360deg; } }
-.caso::after { /* luz que segue o mouse */
-  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s;
-  background: radial-gradient(500px circle at var(--lx, 50%) var(--ly, 50%), color-mix(in srgb, var(--cor) 16%, transparent), transparent 45%);
+.caso:hover::before { animation-play-state: running; will-change: transform; }
+@keyframes bordaGira { to { transform: translate(-50%, -50%) rotate(360deg); } }
+.caso::after {
+  content: ""; position: absolute; z-index: -1; inset: 1px; border-radius: 31px; pointer-events: none;
+  background:
+    radial-gradient(70% 60% at 100% 0%, color-mix(in srgb, var(--cor) 10%, transparent), transparent 70%),
+    linear-gradient(160deg, #2c2526, #1f1a1b);
 }
-.caso:hover::after { opacity: 1; }
 .caso--inverso .caso__info { order: 2; }
 .caso__num {
   position: absolute; right: 1.5rem; top: -1.2rem; pointer-events: none;
@@ -376,23 +376,22 @@ html:not(.js) .revela { opacity: 1; transform: none; }
     linear-gradient(rgba(248, 247, 243, .045) 1px, transparent 1px) 0 0 / 24px 24px,
     linear-gradient(90deg, rgba(248, 247, 243, .045) 1px, transparent 1px) 0 0 / 24px 24px,
     rgba(10, 8, 8, .55);
-  border: 1px solid var(--linha);
+  border: 1px solid var(--linha); contain: paint; transform: translateZ(0);
 }
 .fluxo::before { content: "ARCHITECTURE.svg"; position: absolute; left: 1rem; top: .8rem; font: 500 .62rem/1 var(--f-mono); letter-spacing: .16em; color: rgba(248, 247, 243, .35); }
 .fluxo__no {
   position: absolute; left: var(--x); top: var(--y); z-index: 2; max-width: 40%;
   padding: .7rem .85rem; border-radius: 12px; font: 700 .78rem/1.25 var(--f-texto);
-  background: rgba(38, 31, 32, .92); border: 1px solid var(--linha); box-shadow: 0 8px 24px rgba(0, 0, 0, .4);
+  background: rgba(38, 31, 32, .96); border: 1px solid var(--linha);
   transition: transform .3s var(--ease), border-color .3s, box-shadow .3s;
 }
 .fluxo__no small { display: block; font: 500 .6rem/1 var(--f-mono); color: var(--cor); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .35rem; }
-.fluxo__no--forte { border-color: var(--cor); box-shadow: 0 0 0 1px var(--cor), 0 0 30px color-mix(in srgb, var(--cor) 35%, transparent); }
+.fluxo__no--forte { border-color: var(--cor); box-shadow: 0 0 0 1px var(--cor); }
 .fluxo__no:hover { transform: translateY(-4px) scale(1.04); border-color: var(--cor); }
 .fluxo__setas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; overflow: visible; }
 .fluxo__setas path {
   fill: none; stroke: var(--cor); stroke-width: 1.8; stroke-linecap: round;
   stroke-dasharray: var(--len); stroke-dashoffset: var(--len);
-  filter: drop-shadow(0 0 3px var(--cor));
 }
 .fluxo__setas .ponta { fill: var(--cor); stroke: none; opacity: 0; transition: opacity .3s; }
 .caso.visivel .fluxo__setas .ponta { opacity: 1; transition-delay: 1.2s; }
@@ -402,8 +401,8 @@ html:not(.js) .revela { opacity: 1; transform: none; }
 .caso.visivel .fluxo__setas path:nth-child(4) { animation-delay: .9s; }
 .caso.visivel .fluxo__setas path:nth-child(5) { animation-delay: 1.2s; }
 @keyframes desenha { to { stroke-dashoffset: 0; } }
-.fluxo:hover .fluxo__setas path { stroke-dasharray: 6 5; stroke-dashoffset: 0; animation: tracejado .8s linear infinite; }
-.fluxo__pacote { position: absolute; z-index: 3; width: 10px; height: 10px; border-radius: 50%; background: var(--amarelo); box-shadow: 0 0 14px 3px var(--amarelo); offset-rotate: 0deg; left: 0; top: 0; opacity: 0; }
+.fluxo:hover .fluxo__setas path { stroke-dasharray: 6 5; stroke-dashoffset: 0; }
+.fluxo__pacote { position: absolute; z-index: 3; width: 22px; height: 22px; margin: -6px 0 0 -6px; border-radius: 50%; background: radial-gradient(circle, #fff 0 18%, var(--amarelo) 30%, rgba(255, 254, 163, 0) 70%); left: 0; top: 0; opacity: 0; will-change: transform; }
 .caso.visivel .fluxo__pacote { opacity: 1; transition: opacity .4s 1.5s; }
 
 /* processo (obra com setas) */
@@ -456,7 +455,9 @@ html:not(.js) .revela { opacity: 1; transform: none; }
 .camada__nome::before { content: "▸ "; color: var(--amarelo); }
 
 /* sobre + polaroids */
-.sobre { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: center; }
+.sobre { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
+.sobre .polaroids { position: sticky; top: 7rem; }
+@media (max-width: 1000px) { .sobre .polaroids { position: relative; top: 0; max-width: 460px; } }
 .sobre .titulo-secao { color: var(--grafite); margin-bottom: 1.4rem; }
 .sobre .titulo-secao .script { color: var(--rosa); }
 .polaroids { position: relative; aspect-ratio: 4 / 4.4; }
@@ -542,8 +543,8 @@ html:not(.js) .revela { opacity: 1; transform: none; }
 }
 .glitch-hover { position: relative; }
 .glitch-hover::before, .glitch-hover::after { content: attr(data-text); position: absolute; inset: 0; opacity: 0; pointer-events: none; }
-.caso:hover .glitch-hover::before { opacity: 1; color: var(--ciano); mix-blend-mode: screen; animation: glitchA .9s steps(1) infinite; animation-delay: -.78s; }
-.caso:hover .glitch-hover::after { opacity: 1; color: var(--rosa); mix-blend-mode: screen; animation: glitchB .9s steps(1) infinite; animation-delay: -.72s; }
+.caso:hover .glitch-hover::before { opacity: 1; color: var(--ciano); animation: glitchA .9s steps(1) 1 both; animation-delay: -.78s; }
+.caso:hover .glitch-hover::after { opacity: 1; color: var(--rosa); animation: glitchB .9s steps(1) 1 both; animation-delay: -.72s; }
 
 /* tela "bugada" por um instante (disparado pelo JS) */
 .tremendo main { animation: telaBug .3s steps(2) 1; }
@@ -552,7 +553,7 @@ html:not(.js) .revela { opacity: 1; transform: none; }
 /* os bugs que andam pela página */
 .bicho {
   position: fixed; z-index: 120; width: 34px; height: 34px; left: 0; top: 0; padding: 0; border: 0; background: none; cursor: crosshair;
-  color: var(--amarelo); filter: drop-shadow(0 0 1px #332d2d) drop-shadow(0 0 1px #332d2d) drop-shadow(0 0 6px rgba(255, 254, 163, .8));
+  color: var(--amarelo); will-change: transform; filter: drop-shadow(0 0 2px #332d2d);
 }
 .bicho svg { width: 100%; height: 100%; animation: patas .18s steps(2) infinite; }
 @keyframes patas { 50% { transform: scaleX(.88); } }
@@ -600,3 +601,6 @@ html.calmo .fluxo__setas path, html.calmo .obra__setas path { stroke-dashoffset:
 html.calmo .obra__setas .ponta { opacity: 1 !important; }
 html.calmo .cursor, html.calmo .fundo__ruido, html.calmo .fluxo__pacote { display: none; }
 html.calmo, html.calmo a, html.calmo button { cursor: auto !important; }
+
+/* ---------- 10. Desempenho: o que está fora da tela fica parado ---------- */
+.pausado, .pausado *, .pausado *::before, .pausado *::after { animation-play-state: paused !important; }

@@ -8,7 +8,7 @@
   function calmo() { return sistemaCalmo.matches || raiz.classList.contains("calmo"); }
 
   var SVG_BUG = '<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-bug"/></svg>';
-  var MAX = 8, vivos = [], total = 0;
+  var MAX = 8, vivos = [], total = 0, rodando = false;
 
   function criar(x, y) {
     if (calmo() || vivos.length >= MAX) return;
@@ -29,6 +29,7 @@
     if (x == null) b.ang = b.x < 0 ? (Math.random() - 0.5) : Math.PI + (Math.random() - 0.5);
     el.addEventListener("click", function (e) { e.stopPropagation(); esmagar(b); });
     vivos.push(b);
+    if (!rodando) { rodando = true; requestAnimationFrame(passo); }
   }
 
   function esmagar(b) {
@@ -67,6 +68,7 @@
     if (calmo()) {
       vivos.forEach(function (b) { b.el.remove(); }); vivos = [];
     }
+    if (!vivos.length) { rodando = false; return; }
     vivos.forEach(function (b) {
       if (b.pausa > 0) { b.pausa--; return; }
       if (Math.random() < 0.006) b.pausa = 30 + Math.random() * 60;        // para e "pensa"
@@ -84,7 +86,7 @@
       }
       b.x += Math.cos(b.ang) * b.vel;
       b.y += Math.sin(b.ang) * b.vel;
-      b.el.style.transform = "translate(" + b.x + "px," + b.y + "px) rotate(" + (b.ang + Math.PI / 2) + "rad)";
+      b.el.style.transform = "translate3d(" + b.x + "px," + b.y + "px,0) rotate(" + (b.ang + Math.PI / 2) + "rad)";
     });
     requestAnimationFrame(passo);
   }
@@ -105,5 +107,4 @@
     setTimeout(aparecer, 14000 + Math.random() * 12000);
   }
   setTimeout(aparecer, 7000);
-  requestAnimationFrame(passo);
 })();
