@@ -1,0 +1,8 @@
+{
+  "name": "portfolio-rapha-vanti",
+  "private": true,
+  "description": "Portfólio Rapha Vanti: desenvolvedora de sistemas (site estático: HTML, CSS e JS).",
+  "scripts": {
+    "dev": "npx --yes serve@14.2.4 -l 3002 ."
+  }
+}

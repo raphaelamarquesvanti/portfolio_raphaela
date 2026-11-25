@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rapha Vanti · Desenvolvedora de Sistemas</title>
+  <meta name="description" content="Raphaela Vanti: desenvolvedora full stack e engenheira de dados. Sistemas internos, bancos de dados seguros e interfaces que as pessoas entendem.">
+  <meta name="theme-color" content="#332d2d">
+  <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/unbounded-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/yellowtail-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/estilos.css">
+  <script>
+    // Abertura (terminal) só para quem não pediu menos movimento.
+    // Segurança: se algo falhar, o conteúdo aparece sozinho em 6 segundos.
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !sessionStorage.getItem("rv-boot")) {
+      document.documentElement.classList.add("com-boot");
+      setTimeout(function () { document.documentElement.classList.remove("com-boot"); }, 6000);
+    }
+  </script>
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- ============ ABERTURA: terminal "compilando" o portfólio ============ -->
+  <div class="boot" id="boot" aria-hidden="true">
+    <div class="boot__janela">
+      <div class="boot__barra"><i></i><i></i><i></i><span>~/raphavanti · bash</span></div>
+      <pre class="boot__log" id="boot-log"></pre>
+    </div>
+    <button class="boot__pular" type="button" id="boot-pular">Pular ↵</button>
+  </div>
+
+  <!-- ============ CAMADAS DE FUNDO ============ -->
+  <div class="fundo" aria-hidden="true">
+    <div class="fundo__aurora"></div>
+    <div class="fundo__grid"></div>
+    <div class="fundo__reticula"></div>
+    <div class="fundo__ruido"></div>
+    <div class="fundo__scan"></div>
+  </div>
+  <div class="cursor" aria-hidden="true"><span class="cursor__ponto"></span><span class="cursor__anel"></span></div>
+
+  <!-- ============ MENU ============ -->
+  <header class="topo" id="topo">
+    <a class="topo__logo" href="#inicio" aria-label="Rapha Vanti, início">
+      <img src="assets/brand/logo-rosa-claro.png" alt="Raphaela Vanti" width="156" height="39">
+    </a>
+    <nav class="topo__nav" aria-label="Principal">
+      <a href="#projetos">Projetos</a>
+      <a href="#construcao">Como construo</a>
+      <a href="#bugs">Bugs</a>
+      <a href="#stack">Stack</a>
+      <a href="#sobre">Sobre</a>
+    </nav>
+    <div class="topo__acoes">
+      <span class="contador" title="Bugs que você esmagou nesta visita" aria-live="polite">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-bug"/></svg>
+        <b id="contador-bugs">0</b><span class="sr"> bugs corrigidos</span>
+      </span>
+      <button class="botao botao--mini" type="button" id="reduzir" aria-pressed="false" title="Reduzir efeitos">
+        <span aria-hidden="true">◐</span><span class="sr">Reduzir efeitos</span>
+      </button>
+      <a class="botao botao--neon botao--mini magnetico" href="#contato">Contratar</a>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- ============ HERO EM CAMADAS ============ -->
+    <section class="hero" id="inicio">
+      <div class="hero__gigante" aria-hidden="true"><span>DEVELOPER</span><span>DEVELOPER</span></div>
+      <div class="hero__regua" aria-hidden="true"><span>FULL STACK</span><span>/</span><span>DATA ENGINEER</span><span>/</span><span>UX</span><span>/</span><span>EST. 2026</span></div>
+      <div class="hero__texto">
+        <p class="rotulo"><span class="pisca">▍</span> desenvolvedora de sistemas · full stack · dados</p>
+        <h1 class="hero__titulo">
+          <span class="glitch" data-text="Sistemas">Sistemas</span>
+          <span class="vazado" data-text="sem bug">sem bug</span>
+          <span class="hero__linha3">do banco <em class="script">à tela.</em></span>
+        </h1>
+        <p class="hero__sub">
+          Sou a <strong>Raphaela Vanti</strong>. Transformo planilhas, processos soltos e ideias em
+          sistemas com banco de dados seguro, regras claras e telas que as pessoas entendem.
+        </p>
+        <div class="hero__ctas">
+          <a class="botao botao--neon magnetico" href="#projetos"><span>Ver projetos</span> <span aria-hidden="true">→</span></a>
+          <a class="botao botao--vidro magnetico" href="#contato">Começar um projeto</a>
+        </div>
+        <ul class="hero__selos" aria-label="Princípios">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-escudo"/></svg> LGPD desde o dia 1</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-banco"/></svg> Segurança por linha (RLS)</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-raio"/></svg> Leve e acessível</li>
+        </ul>
+      </div>
+
+      <div class="hero__palco" aria-hidden="true">
+        <!-- camada 1: placas deslocadas -->
+        <div class="placa placa--vinho" data-prof="0.15"></div>
+        <div class="placa placa--rosa" data-prof="0.3"></div>
+        <!-- camada 2: foto com moldura e glitch -->
+        <figure class="foto" data-prof="0.5">
+          <img src="assets/brand/foto-rapha.webp" alt="" width="900" height="1125">
+          <span class="foto__glitch" style="background-image:url(assets/brand/foto-rapha.webp)"></span>
+          <span class="foto__glitch foto__glitch--b" style="background-image:url(assets/brand/foto-rapha.webp)"></span>
+        </figure>
+        <!-- camada 3: blocos de código ligados por setas -->
+        <svg class="setas-hero" viewBox="0 0 520 600" preserveAspectRatio="none">
+          <defs>
+            <marker id="ponta" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+            </marker>
+          </defs>
+          <path class="seta" d="M70,95 C140,95 150,170 210,190" marker-end="url(#ponta)"/>
+          <path class="seta" d="M455,170 C430,240 400,250 345,262" marker-end="url(#ponta)"/>
+          <path class="seta" d="M90,470 C160,470 170,420 215,400" marker-end="url(#ponta)"/>
+          <path class="seta" d="M450,520 C400,520 380,470 340,455" marker-end="url(#ponta)"/>
+        </svg>
+        <div class="chip chip--1" data-prof="0.8"><b>db</b> postgres · RLS on</div>
+        <div class="chip chip--2" data-prof="0.7"><b>api</b> regras no servidor</div>
+        <div class="chip chip--3" data-prof="0.9"><b>ui</b> react + typescript</div>
+        <div class="chip chip--4" data-prof="0.6"><b>✓</b> build passou</div>
+        <span class="estrela estrela--1">✦</span><span class="estrela estrela--2">✦</span><span class="estrela estrela--3">✧</span>
+        <!-- camada 4: adesivos, selo giratório e detalhes de "ficha técnica" -->
+        <div class="selo-giro" data-prof="1.1">
+          <svg viewBox="0 0 200 200"><defs><path id="circulo" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+            <text><textPath href="#circulo" textLength="486" lengthAdjust="spacing">AVAILABLE FOR PROJECTS ✦ DISPONÍVEL ✦ </textPath></text></svg>
+          <span>✦</span>
+        </div>
+        <span class="fita fita--1">SYSTEM DEV</span>
+        <span class="fita fita--2">DATA · UX · CODE</span>
+        <div class="ficha" data-prof="0.35">
+          <b>RV—2026</b><span>SÃO PAULO · BR</span><span>23.55°S 46.63°W</span>
+          <i class="codigo-barras"></i>
+        </div>
+        <div class="adesivo" data-prof="1"><span>bug<br>free*</span><small>*ou quase</small></div>
+      </div>
+
+      <a class="hero__rolar" href="#projetos" aria-label="Rolar até os projetos"><span></span></a>
+    </section>
+
+    <!-- ============ FAIXA ============ -->
+    <div class="faixa" aria-hidden="true">
+      <div class="faixa__trilho">
+        <span>SUPABASE</span><i>✦</i><span>REACT</span><i>✦</i><span>TYPESCRIPT</span><i>✦</i><span>NODE.JS</span><i>✦</i><span>PYTHON</span><i>✦</i><span>POSTGRES</span><i>✦</i><span>NEXT.JS</span><i>✦</i><span>LGPD</span><i>✦</i>
+        <span>SUPABASE</span><i>✦</i><span>REACT</span><i>✦</i><span>TYPESCRIPT</span><i>✦</i><span>NODE.JS</span><i>✦</i><span>PYTHON</span><i>✦</i><span>POSTGRES</span><i>✦</i><span>NEXT.JS</span><i>✦</i><span>LGPD</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- ============ PROJETOS ============ -->
+    <section class="secao" id="projetos" aria-labelledby="t-projetos">
+      <header class="secao__topo revela">
+        <p class="rotulo">// 01 · projetos</p>
+        <h2 id="t-projetos" class="titulo-secao"><span class="vazado vazado--claro" data-text="O que">O que</span> já construí</h2>
+        <p class="secao__intro">Três sistemas reais, cada um com o caminho que o dado percorre: da origem até a tela. Passe o mouse nas setas.</p>
+      </header>
+
+      <!-- Projeto 1 -->
+      <article class="caso revela" data-cor="rosa">
+        <div class="caso__num" aria-hidden="true">01</div>
+        <div class="caso__info">
+          <p class="caso__tag"><span class="status status--valida">protótipo em validação</span> sistema interno · recrutamento</p>
+          <h3 class="caso__titulo glitch-hover" data-text="Reporte de Vagas">Reporte de Vagas</h3>
+          <p class="caso__resumo">
+            Sistema web que substitui a planilha de reporte de vagas de uma consultoria de recrutamento.
+            Ninguém digita fórmula: campos tipados, status em lista fechada e SLA em dias úteis calculado pelo servidor.
+          </p>
+          <ul class="caso__lista">
+            <li>Histórico de tudo o que mudou, e por quê</li>
+            <li>Campos sigilosos só mudam com aprovação do administrador</li>
+            <li>Consultor vê apenas as próprias vagas (regras no banco, não na tela)</li>
+            <li>Dashboard ao vivo e exportação em PDF</li>
+            <li>Importador em Python que leva a planilha antiga para o banco</li>
+          </ul>
+          <ul class="tags" aria-label="Tecnologias">
+            <li>React 19</li><li>TypeScript</li><li>Vite</li><li>Supabase</li><li>Postgres + RLS</li><li>Python</li><li>jsPDF</li>
+          </ul>
+        </div>
+        <figure class="fluxo" data-ligacoes="0-1,1-2,2-3,3-4" aria-label="Arquitetura: planilha, importador Python, banco Postgres com regras, interface React e relatório PDF">
+          <div class="fluxo__no" style="--x:6%;--y:10%"><small>origem</small>Planilha .xlsm</div>
+          <div class="fluxo__no" style="--x:52%;--y:10%"><small>scripts/</small>Importador Python</div>
+          <div class="fluxo__no fluxo__no--forte" style="--x:30%;--y:44%"><small>supabase/</small>Postgres · RLS<br>migrações SQL versionadas</div>
+          <div class="fluxo__no" style="--x:4%;--y:78%"><small>frontend/</small>React + TS</div>
+          <div class="fluxo__no" style="--x:58%;--y:78%"><small>saída</small>Dashboard · PDF</div>
+          <span class="fluxo__pacote" aria-hidden="true"></span>
+        </figure>
+      </article>
+
+      <!-- Projeto 2 -->
+      <article class="caso caso--inverso revela" data-cor="amarelo">
+        <div class="caso__num" aria-hidden="true">02</div>
+        <div class="caso__info">
+          <p class="caso__tag"><span class="status status--dev">em desenvolvimento</span> plataforma · educação</p>
+          <h3 class="caso__titulo glitch-hover" data-text="Play of Language">Play of Language</h3>
+          <p class="caso__resumo">
+            Plataforma de jogos para crianças, jovens e adultos treinarem idiomas, sozinhos, com amigos ou em sala de aula.
+            Inglês, espanhol e francês, com italiano, alemão, japonês e coreano a caminho.
+          </p>
+          <ul class="caso__lista">
+            <li>5 jogos: Restaurante, Gato no Labirinto, Memória, Shadowing com microfone e Fuga do Dragão</li>
+            <li>Salas multiplayer de até 4 jogadores; o servidor corrige tudo (sem trapaça)</li>
+            <li>Área do professor: turmas, provas, atividades e notas</li>
+            <li>Evolução com gráfico e PDF de cada partida</li>
+            <li>Modo infantil e jovem/adulto, tema claro ou escuro</li>
+          </ul>
+          <ul class="tags" aria-label="Tecnologias">
+            <li>React</li><li>TypeScript</li><li>Node.js</li><li>Express</li><li>Socket.io</li><li>Supabase</li><li>Render</li>
+          </ul>
+        </div>
+        <figure class="fluxo" data-ligacoes="0-1,2-1,1-4,3-1" aria-label="Arquitetura: jogador no navegador, API Node com salas em tempo real, conteúdo compartilhado e banco Postgres">
+          <div class="fluxo__no" style="--x:4%;--y:10%"><small>client/</small>Jogos em React</div>
+          <div class="fluxo__no fluxo__no--forte" style="--x:50%;--y:10%"><small>server/</small>API Express<br>salas Socket.io</div>
+          <div class="fluxo__no" style="--x:6%;--y:46%"><small>shared/</small>Vocabulário · frases</div>
+          <div class="fluxo__no" style="--x:54%;--y:50%"><small>professor</small>Provas · notas</div>
+          <div class="fluxo__no" style="--x:28%;--y:80%"><small>banco</small>Postgres · Supabase</div>
+          <span class="fluxo__pacote" aria-hidden="true"></span>
+        </figure>
+      </article>
+
+      <!-- Projeto 3 -->
+      <article class="caso revela" data-cor="vinho">
+        <div class="caso__num" aria-hidden="true">03</div>
+        <div class="caso__info">
+          <p class="caso__tag"><span class="status status--dev">em desenvolvimento</span> SaaS · imobiliário</p>
+          <h3 class="caso__titulo glitch-hover" data-text="Fechôu Morada">Fechôu Morada</h3>
+          <p class="caso__resumo">
+            CRM para corretores autônomos e pequenas imobiliárias: imóvel, cliente, visita, proposta e comissão no mesmo lugar,
+            sem planilha solta. A página de vendas já está pronta, com abertura animada "do caos ao fechamento".
+          </p>
+          <ul class="caso__lista">
+            <li>Imóveis, leads com funil, agenda, financeiro e comissões por corretor</li>
+            <li>Dados de cada imobiliária isolados no banco</li>
+            <li>Permissões por papel: administrador e corretor</li>
+            <li>Personalização: cores e logo da imobiliária, alto contraste e modo para daltonismo</li>
+            <li>Página de vendas estática, leve e acessível, com planos</li>
+          </ul>
+          <ul class="tags" aria-label="Tecnologias">
+            <li>Next.js</li><li>TypeScript</li><li>Tailwind</li><li>Supabase</li><li>HTML · CSS · JS</li>
+          </ul>
+        </div>
+        <figure class="fluxo" data-ligacoes="0-1,1-2,2-3,2-4" aria-label="Arquitetura: página de vendas leva ao cadastro, CRM em Next.js e banco com dados separados por imobiliária">
+          <div class="fluxo__no" style="--x:4%;--y:10%"><small>vendas</small>Página de vendas</div>
+          <div class="fluxo__no" style="--x:52%;--y:10%"><small>auth</small>Login · permissões</div>
+          <div class="fluxo__no fluxo__no--forte" style="--x:28%;--y:44%"><small>app</small>CRM Next.js<br>funil · agenda · comissões</div>
+          <div class="fluxo__no" style="--x:4%;--y:80%"><small>banco</small>1 espaço por imobiliária</div>
+          <div class="fluxo__no" style="--x:58%;--y:80%"><small>saída</small>Relatórios PDF · CSV</div>
+          <span class="fluxo__pacote" aria-hidden="true"></span>
+        </figure>
+      </article>
+    </section>
+
+    <!-- ============ COMO EU CONSTRUO (setas) ============ -->
+    <section class="secao secao--clara" id="construcao" aria-labelledby="t-construcao">
+      <header class="secao__topo revela">
+        <p class="rotulo rotulo--escuro">// 02 · processo</p>
+        <h2 id="t-construcao" class="titulo-secao">Como eu <span class="script">construo</span></h2>
+        <p class="secao__intro">Cada etapa entrega algo que você consegue ver e aprovar antes da próxima.</p>
+      </header>
+
+      <ol class="obra" id="obra">
+        <li class="obra__etapa"><span class="obra__n">01</span><h3>Entender</h3><p>Como o trabalho acontece hoje: planilhas, papéis, quem faz o quê.</p><code>processo.md</code></li>
+        <li class="obra__etapa"><span class="obra__n">02</span><h3>Modelar dados</h3><p>Tabelas, relações e o que cada pessoa pode ver.</p><code>0001_base.sql</code></li>
+        <li class="obra__etapa"><span class="obra__n">03</span><h3>Regras e segurança</h3><p>Validações no servidor, RLS e LGPD antes da primeira tela.</p><code>rls.sql</code></li>
+        <li class="obra__etapa"><span class="obra__n">04</span><h3>Interface</h3><p>Telas simples, acessíveis e com a identidade da sua empresa.</p><code>App.tsx</code></li>
+        <li class="obra__etapa"><span class="obra__n">05</span><h3>Testar</h3><p>Testes de segurança e de regras, caçando bug antes do cliente.</p><code>npm test</code></li>
+        <li class="obra__etapa"><span class="obra__n">06</span><h3>Entregar</h3><p>Publicação, treinamento e acompanhamento de bugs.</p><code>deploy ✓</code></li>
+        <svg class="obra__setas" aria-hidden="true"></svg>
+      </ol>
+    </section>
+
+    <!-- ============ CAÇA AOS BUGS ============ -->
+    <section class="secao" id="bugs" aria-labelledby="t-bugs">
+      <div class="bugs">
+        <header class="bugs__texto revela">
+          <p class="rotulo">// 03 · qualidade</p>
+          <h2 id="t-bugs" class="titulo-secao"><span class="glitch" data-text="Bug">Bug</span> encontrado é bug <span class="script">corrigido</span>.</h2>
+          <p class="secao__intro">
+            Uns bichinhos andam escondidos por esta página. Clique neles para esmagar.
+            Nos meus sistemas faço o mesmo, só que com testes, regras no banco e revisão de segurança.
+          </p>
+          <button class="botao botao--neon magnetico" type="button" id="soltar-bugs">Soltar bugs</button>
+        </header>
+        <div class="terminal revela" role="img" aria-label="Terminal mostrando testes que falham e depois passam">
+          <div class="terminal__barra"><i></i><i></i><i></i><span>npm test</span></div>
+          <pre class="terminal__corpo" id="terminal"></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STACK ============ -->
+    <section class="secao" id="stack" aria-labelledby="t-stack">
+      <header class="secao__topo revela">
+        <p class="rotulo">// 04 · ferramentas</p>
+        <h2 id="t-stack" class="titulo-secao">Stack <span class="vazado vazado--claro" data-text="em camadas">em camadas</span></h2>
+      </header>
+      <div class="camadas">
+        <div class="camada revela" style="--i:0"><span class="camada__nome">Interface</span><ul class="tags"><li>React</li><li>Next.js</li><li>TypeScript</li><li>Vite</li><li>Tailwind</li><li>HTML · CSS</li></ul></div>
+        <div class="camada revela" style="--i:1"><span class="camada__nome">Servidor</span><ul class="tags"><li>Node.js</li><li>Express</li><li>Socket.io</li><li>Python</li><li>Java</li></ul></div>
+        <div class="camada revela" style="--i:2"><span class="camada__nome">Dados</span><ul class="tags"><li>Postgres</li><li>Supabase</li><li>SQL Server</li><li>SQLite</li><li>RLS</li><li>Dashboards</li></ul></div>
+        <div class="camada revela" style="--i:3"><span class="camada__nome">Ferramentas</span><ul class="tags"><li>VS Code</li><li>Git · GitHub</li><li>Claude Code</li><li>Render</li><li>Vercel</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ============ SOBRE ============ -->
+    <section class="secao secao--bege" id="sobre" aria-labelledby="t-sobre">
+      <div class="sobre revela">
+        <div class="polaroids" aria-hidden="true">
+          <figure class="polaroid polaroid--1"><img src="assets/brand/foto-rapha.webp" alt="" loading="lazy" width="900" height="1125"><figcaption>dados ✦</figcaption></figure>
+          <figure class="polaroid polaroid--2"><img src="assets/brand/foto-rapha.webp" alt="" loading="lazy" width="900" height="1125"><figcaption>design ✦</figcaption></figure>
+          <figure class="polaroid polaroid--3"><img src="assets/brand/foto-rapha.webp" alt="" loading="lazy" width="900" height="1125"><figcaption>código ✦</figcaption></figure>
+          <span class="fita fita--polaroid"></span>
+          <img class="sobre__assinatura" src="assets/brand/logo-grafite.png" alt="" width="520" height="131" loading="lazy">
+        </div>
+        <div>
+          <p class="rotulo rotulo--escuro">// 05 · sobre</p>
+          <h2 id="t-sobre" class="titulo-secao">Dados, design e <span class="script">código</span> no mesmo lugar</h2>
+          <p>
+            Sou desenvolvedora full stack e engenheira de dados. Crio sistemas de controle interno e dashboards
+            para empresas, cuidando do banco de dados à experiência de quem usa. Minha base em design e UX faz
+            com que o sistema não só funcione, mas seja fácil de usar.
+          </p>
+          <p class="preencher">[PREENCHER: formação, cursos e trajetória]</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTATO ============ -->
+    <section class="secao contato" id="contato" aria-labelledby="t-contato">
+      <div class="contato__caixa revela">
+        <p class="rotulo">// 06 · contato</p>
+        <h2 id="t-contato" class="titulo-secao contato__titulo">
+          <span class="vazado vazado--claro" data-text="Vamos">Vamos</span> construir o seu?
+        </h2>
+        <p class="secao__intro">Conte como sua empresa se organiza hoje. Respondo com um plano, prazo e valor.</p>
+        <div class="contato__links">
+          <a class="botao botao--neon magnetico" href="mailto:[PREENCHER-EMAIL]">E-mail</a>
+          <a class="botao botao--vidro magnetico" href="#" data-preencher="WhatsApp">WhatsApp</a>
+          <a class="botao botao--vidro magnetico" href="#" data-preencher="LinkedIn">LinkedIn</a>
+          <a class="botao botao--vidro magnetico" href="https://www.instagram.com/raphavanti/" target="_blank" rel="noopener">Instagram @raphavanti</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <img src="assets/brand/logo-branco.png" alt="Raphaela Vanti" width="130" height="33" loading="lazy">
+    <p>Rapha Vanti · Desenvolvedora Full Stack e Engenheira de Dados<br>MEI · CNPJ 68.133.407/0001-20 · São Paulo/SP</p>
+    <p class="rodape__mini">Este site não usa cookies nem fontes externas. <span id="ano"></span></p>
+  </footer>
+
+  <!-- ============ ÍCONES ============ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="ic-bug" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><ellipse cx="12" cy="14" rx="5" ry="6"/><path d="M12 8v12M9 5l1.5 2.5M15 5l-1.5 2.5M7 11H3M7 15H3.5M7.5 19l-3 2M17 11h4M17 15h3.5M16.5 19l3 2"/></g></symbol>
+    <symbol id="ic-escudo" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z M9 12l2 2 4-4"/></symbol>
+    <symbol id="ic-banco" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></g></symbol>
+    <symbol id="ic-raio" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+  </svg>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/bugs.js" defer></script>
+</body>
+</html>
