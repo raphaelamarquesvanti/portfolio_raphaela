@@ -47,7 +47,8 @@ Qualquer hospedagem de site estático: Vercel, Netlify ou GitHub Pages
 (no GitHub: *Settings → Pages → Deploy from branch → main / root*).
 
 ## Próximos passos
-- [ ] Preencher e-mail, WhatsApp, LinkedIn e formação (`[PREENCHER]` no `index.html`).
+- [x] E-mail, WhatsApp, GitHub e formação preenchidos a partir do currículo.
+- [ ] Adicionar o LinkedIn na seção Contato.
 - [ ] Mais 3 a 5 fotos (trabalho, tela com código, retrato) para o hero e as polaroids.
 - [ ] Confirmar autorização para citar o projeto Reporte de Vagas (sistema de cliente).
 - [ ] Fase seguinte do plano: migrar para Next.js + Supabase, com projetos lidos do banco.

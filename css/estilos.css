@@ -476,6 +476,19 @@ html:not(.js) .revela { opacity: 1; transform: none; }
 .fita--polaroid::before, .fita--polaroid::after { display: none; }
 .sobre__assinatura { position: absolute; z-index: 4; right: -6%; bottom: -10%; width: 58%; transform: rotate(-6deg); }
 
+.trajetoria { display: grid; grid-template-columns: 1fr 1.3fr; gap: 2rem; margin-top: 2rem; }
+.trajetoria__titulo { font: 800 .9rem/1 var(--f-display); text-transform: uppercase; letter-spacing: .04em; color: var(--grafite); margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem; }
+.trajetoria__titulo::before { content: "✦"; color: var(--rosa); }
+.linha-tempo { list-style: none; margin: 0; padding: 0 0 0 1.1rem; border-left: 2px dashed rgba(206, 48, 115, .45); display: grid; gap: 1rem; }
+.linha-tempo li { position: relative; display: grid; gap: .15rem; }
+.linha-tempo li::before { content: ""; position: absolute; left: calc(-1.1rem - 6px); top: .35rem; width: 10px; height: 10px; border-radius: 50%; background: var(--rosa); box-shadow: 0 0 0 3px var(--bege), 0 0 10px rgba(206, 48, 115, .6); }
+.linha-tempo__ano { font: 700 .68rem/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--vinho); }
+.linha-tempo b { font-size: .98rem; color: var(--grafite); line-height: 1.3; }
+.linha-tempo small { font-size: .85rem; color: #5a4f4f; line-height: 1.45; }
+.sobre__idioma { margin-top: 1.6rem; font: 500 .8rem/1 var(--f-mono); color: #5a4f4f; }
+.sobre__idioma b { color: var(--grafite); }
+@media (max-width: 1000px) { .trajetoria { grid-template-columns: 1fr; } }
+
 /* contato */
 .contato__caixa {
   position: relative; text-align: center; padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem); border-radius: 40px; overflow: hidden;
